@@ -27,5 +27,5 @@ class HaneBot {
 
 fun main() {
     val bot = HaneBot()
-    bot.create("MTAyMDE5NTAxNTM0NTA1Nzg1NQ.Giy8ro.8LthzkyU6TSkqBvcgzvhaknnpq7LOLyEE2f1bo")
+    bot.create("")
 }
