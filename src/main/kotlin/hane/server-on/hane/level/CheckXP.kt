@@ -33,7 +33,7 @@ class CheckXP: Command() {
                 .setTitle(rank.rank)
                 .setAuthor(name, "https://haneserver.github.io/hane-server-blog/", event.member.user.avatarUrl)
                 .setThumbnail(rank.image)
-                .addField("${name}のレベル", level.toString(), true)
+                .addField("${name}のLevel", level.toString(), true)
                 .setFooter(LocalDate.now().toString())
             event.reply(eb.build())
         } catch (e: Exception) {
