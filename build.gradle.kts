@@ -16,8 +16,8 @@ repositories {
 dependencies {
     implementation("net.dv8tion:JDA:4.4.0_352")
     implementation("com.jagrosh:jda-utilities-command:3.0.3")
-    implementation("com.google.code.gson:gson:2.9.1")
     implementation("io.github.cdimascio:dotenv-kotlin:6.3.1")
+    implementation("com.google.firebase:firebase-admin:9.0.0")
 }
 
 tasks.withType<KotlinCompile>() {
