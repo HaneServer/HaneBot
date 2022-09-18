@@ -17,10 +17,12 @@ class CheckXP: Command() {
 
     override fun execute(event: CommandEvent) {
         try {
+            // Discordと連動しているUserの取得
             val future: ApiFuture<QuerySnapshot> =
                 HaneBot().db.collection("users").whereEqualTo("Discord", event.member.id).get()
             val documents = future.get().documents
 
+            // documentから絞り出す
             var level: Long? = 0
             var name: String? = null
             for (document in documents) {
@@ -28,19 +30,24 @@ class CheckXP: Command() {
                 name = document.getString("Name")
             }
 
+            // rankの設定
             val rank = checkRank(level)
+            // embed作成
             val eb = EmbedBuilder()
                 .setTitle(rank.rank)
                 .setAuthor(name, "https://haneserver.github.io/hane-server-blog/", event.member.user.avatarUrl)
                 .setThumbnail(rank.image)
                 .addField("${name}のLevel", level.toString(), true)
                 .setFooter(LocalDate.now().toString())
+            // reply
             event.reply(eb.build())
         } catch (e: Exception) {
+            // error時に失敗しました宣言
             event.member.user.openPrivateChannel().flatMap { channel -> channel.sendMessage("ユーザー情報の取得に失敗しました！いますぐこちらからログインしてください！\nhtps://hanesansaikyou.com") }.queue()
         }
     }
 
+    // rank分け
     fun checkRank(level: Long?): RankValue {
         return when (level) {
             null -> RankValue("Levelが取得できませんでした。運営に問い合わせてください。", "https://cdn.discordapp.com/attachments/1021048950578487396/1021052902342668298/zetsubou-hiyoko.png")
@@ -54,5 +61,6 @@ class CheckXP: Command() {
         }
     }
 
+    // rank の変数格納用 class
     data class RankValue(var rank: String?, var image: String?)
 }
