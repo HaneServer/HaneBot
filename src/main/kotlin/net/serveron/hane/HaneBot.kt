@@ -1,14 +1,13 @@
-package hane.`server-on`.hane
+package net.serveron.hane
 
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.cloud.firestore.Firestore
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.cloud.FirestoreClient
 import com.jagrosh.jdautilities.command.CommandClientBuilder
-import hane.`server-on`.hane.level.AddXP
-import hane.`server-on`.hane.level.CheckXP
+import net.serveron.hane.level.AddXP
+import net.serveron.hane.level.CheckXP
 import io.github.cdimascio.dotenv.Dotenv
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -20,7 +19,6 @@ import java.io.InputStream
 class HaneBot {
     private lateinit var jda: JDA
     val db: Firestore = FirestoreClient.getFirestore()
-    val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun create(token: String) { // create
         val commandClient = CommandClientBuilder()
@@ -29,14 +27,11 @@ class HaneBot {
             .addCommands(CheckXP()) // commands
             .build()
 
-        jda = JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.DIRECT_MESSAGE_REACTIONS) // messageの取得を許可
+        jda = JDABuilder.createDefault(token) // messageの取得を許可
+            .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES) // GatewayIntent.GUILD_PRESENCES,
             .addEventListeners(commandClient) // Regi commandClient
             .addEventListeners(AddXP()) // add jda listener
             .build()
-    }
-
-    fun jda(): JDA {
-        return jda
     }
 }
 

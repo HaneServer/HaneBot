@@ -1,10 +1,10 @@
-package hane.`server-on`.hane.level
+package net.serveron.hane.level
 
 import com.google.api.core.ApiFuture
 import com.google.cloud.firestore.QuerySnapshot
 import com.jagrosh.jdautilities.command.Command
 import com.jagrosh.jdautilities.command.CommandEvent
-import hane.`server-on`.hane.HaneBot
+import net.serveron.hane.HaneBot
 import net.dv8tion.jda.api.EmbedBuilder
 import java.time.LocalDate
 import java.util.*
