@@ -12,6 +12,7 @@ import io.github.cdimascio.dotenv.Dotenv
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
+import net.serveron.hane.etc.Invite
 import net.serveron.hane.skinupload.UploadSkin
 import java.io.FileInputStream
 
@@ -25,7 +26,7 @@ class HaneBot {
         val commandClient = CommandClientBuilder()
             .setPrefix(Dotenv.load().get("PREFIX")) // prefix setting
             .setOwnerId("752090084639244408") // owner id
-            .addCommands(CheckXP(), UploadSkin()) // commands
+            .addCommands(CheckXP(), UploadSkin(), Invite()) // commands
             .build()
 
         jda = JDABuilder.createDefault(token) // messageの取得を許可
